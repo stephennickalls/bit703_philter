@@ -9,9 +9,9 @@
     <!-- Our AddImage component will go here -->
   </div>
 </template>
- 
+
 <script>
 export default {
   name: 'add-images'
-};
+}
 </script>

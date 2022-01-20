@@ -8,22 +8,22 @@
                 </button>
                 <div class="collapse navbar-collapse" id="main-navbar">
                     <ul class="navbar-nav ml-md-auto">
-                        <li>
+                            <router-link tag="li" to="/">
                             <a>Home</a>
-                        </li>
-                        <li>
-                            <a>Images</a>
-                        </li>
-                        <li>
+                            </router-link>
+                            <router-link v-show="user" tag="li" to="/account">
                             <a>Welcome</a>
-                        </li>
-                        <li>
+                            </router-link>
+                            <router-link tag="li" to="/image">
+                            <a>Images</a>
+                            </router-link>
+                             <router-link tag="li" to="/account">
                             <a>Login</a>
-                        </li>
-                        <li>
+                            </router-link>
+                             <router-link tag="li" to="/account">
                             <a>Register</a>
-                        </li>
-                        <li><a href="#">Logout</a></li>
+                            </router-link>
+                        <li><a href="#" v-on:click.prevent="logout" v-show="user">Logout</a></li>
                     </ul>
                 </div>
             </nav>
