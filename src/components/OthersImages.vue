@@ -6,8 +6,8 @@
       <div id="others-images" class="card-columns">
           <div class="card other" v-bind:key="image.id" v-for="image in othersImages">
               <picture v-bind:id="'image' + image.id">
-                  <!-- <img v-bind:src="image.image.path"  v-bind:alt="image.description"/> -->
                   <img v-bind:src="image.image.path"  v-bind:alt="image.description"/>
+                  <!-- <img src=""  v-bind:alt="image.description"/> -->
               </picture>
               <h5>{{ image.name }}</h5>
               <p>{{ image.description }}</p>
