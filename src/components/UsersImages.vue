@@ -9,19 +9,6 @@
       </p>
     </div>
 
-    <!-- flash message -->
-    <div class="row" v-if="message">
-      <div
-        v-bind:class="
-          type == 'alert alert-error'
-            ? 'alert alert-danger'
-            : 'alert alert-success'
-        "
-      >
-        {{ message }}
-      </div>
-    </div>
-
     <!-- start vue if -->
     <!-- if tags -->
     <div class="row" v-if="usersImages">

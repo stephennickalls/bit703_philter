@@ -11,7 +11,7 @@
                             <router-link tag="li" to="/">
                             <a>Home</a>
                             </router-link>
-                            <router-link v-show="user" tag="li" to="/account">
+                            <router-link  tag="li" to="/account">
                             <a>Welcome</a>
                             </router-link>
                             <router-link tag="li" to="/image">
@@ -23,7 +23,7 @@
                              <router-link tag="li" to="/account">
                             <a>Register</a>
                             </router-link>
-                        <li><a href="#" v-on:click.prevent="logout" v-show="user">Logout</a></li>
+                        <li><a href="#" v-on:click.prevent="logout">Logout</a></li>
                     </ul>
                 </div>
             </nav>
