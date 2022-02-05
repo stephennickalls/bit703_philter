@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div class="" v-if="this.$store.getters.isLoggedIn">
+            <h2 class="">Welcolm</h2>
+        </div>
         <h3>Sign in</h3>
         <div class="row" v-if="errorMessage">
             <div class="alert alert-danger">{{ errorMessage }}</div>
@@ -10,18 +13,21 @@
         <form @submit.prevent="OnLogin">
             <div class="form-group">
                 <label for="userSigninLogin">Email</label>
-                <input name="login" type="text" class="form-control" id="userSigninLogin" placeholder="Enter your email" v-model="apiRequest.login">
+                <input name="login" type="text" class="form-control" id="userSigninLogin"
+                placeholder="Enter your email" v-model="apiRequest.login">
             </div>
             <div class="form-group">
                 <label for="userSigninPassword">Password</label>
-                <input name="password" type="password" class="form-control" id="userSigninPassword" placeholder="Enter your password" v-model="apiRequest.password">
+                <input name="password" type="password" class="form-control" id="userSigninPassword"
+                placeholder="Enter your password" v-model="apiRequest.password">
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-form">Sign in</button>
         </form>
     </div>
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   name: 'Login',
   data () {
@@ -30,6 +36,8 @@ export default {
         login: '',
         password: ''
       }),
+      usersImages: [],
+      errors: '',
       errorMessage: '',
       successMessage: ''
     }
@@ -48,6 +56,24 @@ export default {
           this.successMessage = ''
         })
     }
+  },
+  mounted () {
+  // console.log('test')
+  // console.log(this.$store.getters.getToken)
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + this.$store.getters.getToken
+      }
+    }
+    Axios.get('http://localhost/bit703/module6/api/v1/user', config)
+      .then((response) => {
+        this.usersImages = response.data
+        // console.log(this.usersImages)
+        this.errors = ''
+      })
+      .catch((errors) => {
+        this.errors = errors
+      })
   }
 }
 </script>

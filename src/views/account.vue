@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" class="login-page">
     <div class="container">
       <div class="row">
         <div class="text-center">
@@ -8,7 +8,6 @@
       </div>
       <div class="row">
         <div class="col-md-6 pl-0">
-          Login in for should go here
           <!-- Our Login component will go here -->
               <Login />
         </div>

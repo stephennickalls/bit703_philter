@@ -1,8 +1,8 @@
 <template>
   <div id="main">
       <!-- Our UserImages component will go here -->
-      <UsersImages />
-      <div id="others-images" class="container">
+            <div id="images" class="container">
+              <UsersImages />
         <div class="row">
             <h2>Latest Images</h2>
         </div>

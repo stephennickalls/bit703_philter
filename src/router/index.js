@@ -15,7 +15,8 @@ const routes = [
   {
     path: '/image',
     name: 'images',
-    component: () => import('../views/images.vue')
+    component: () => import('../views/images.vue'),
+    meta: { bodyClass: 'bg-light' }
   },
   {
     path: '/image/add',

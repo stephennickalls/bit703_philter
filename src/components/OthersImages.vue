@@ -3,14 +3,16 @@
       <div class="col" v-if="errors">
         <div class="alert alert-danger">{{ errors }}</div>
       </div>
-      <div id="others-images" class="card-columns">
-          <div class="card other" v-bind:key="image.id" v-for="image in othersImages">
+
+      <div id="others-images" class="card-grid">
+          <div class="card card-image" v-bind:key="image.id" v-for="image in othersImages">
               <picture v-bind:id="'image' + image.id">
-                  <img v-bind:src="image.image.path"  v-bind:alt="image.description"/>
-                  <!-- <img src=""  v-bind:alt="image.description"/> -->
+                  <img v-bind:src="image.image.path"  v-bind:alt="image.description" />
               </picture>
-              <h5>{{ image.name }}</h5>
-              <p>{{ image.description }}</p>
+              <div class="card__content">
+                <h5 class="card__header">{{ image.name }}</h5>
+                <p class="card-description" >{{ image.description }}</p>
+              </div>
           </div>
           <div class="clearfix"></div>
       </div>

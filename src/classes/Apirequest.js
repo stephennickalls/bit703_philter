@@ -1,4 +1,5 @@
 import Axios from 'axios'
+
 class ApiRequest {
   /**
    * Create a new APIRequest instance.
@@ -17,6 +18,7 @@ class ApiRequest {
     }
     this.headers = {
       'Content-Type': { 'Content-Type': 'application/json' }
+      // 'Content-Type': { 'Content-Type': 'application/x-www-form-urlencoded' }
     }
   }
 
@@ -30,6 +32,7 @@ class ApiRequest {
    */
   addStore (store) {
     this.store = store
+    return this.store
   }
 
   addAuth () {
@@ -81,6 +84,8 @@ class ApiRequest {
    * @param {string} endpoint
    */
   submit (requestType, endpoint) {
+    // console.log(this.headers)
+    // this.withCredentials = true
     return new Promise((resolve, reject) => {
       this.Axios({
         credentials: 'include',
@@ -90,8 +95,12 @@ class ApiRequest {
         data: this.data
       })
         .then((response) => {
+          console.log(response.headers.authorization)
           if (response.headers.authorization) {
             this.storeToken(response.headers.authorization)
+            // console.log('response included auth header')
+          } else {
+            // console.log('response did not include auth header')
           }
           resolve(response.data)
         })

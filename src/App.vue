@@ -17,6 +17,10 @@
   </div>
 </template>
 
+<style>
+  @import './assets/css/styles.css';
+</style>
+
 <script>
 // import your components here
 import Header from './partials/header.vue'
