@@ -39,31 +39,37 @@ export default {
     }
   },
   mounted () {
-    // console.log('test')
-    // console.log(this.$store.getters.getToken)
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + this.$store.getters.getToken
+    if (this.$store.getters.getToken) {
+      const config = {
+        headers: {
+          Authorization: 'Bearer ' + this.$store.getters.getToken
+        }
       }
+      Axios.get('http://localhost/bit703/module6/api/v1/img/user', config)
+        .then((response) => {
+          this.usersImages = response.data
+          // console.log(this.usersImages)
+          this.errors = ''
+        })
+        .catch((errors) => {
+          this.errors = errors
+        })
+      Axios.get('http://localhost/bit703/module6/api/v1/user', config)
+        .then((response) => {
+          this.user = response.data
+          // console.log(this.usersImages)
+          this.errors = ''
+          this.$store.commit('setUserName', this.user.name)
+          this.$store.commit('setUserID', this.user.id)
+          // console.log(this.user)
+          console.log(this.$store.getters.getUserID)
+        })
+        .catch((errors) => {
+          this.errors = errors
+        })
+    } else {
+      this.$router.push('/account')
     }
-    Axios.get('http://localhost/bit703/module6/api/v1/img/user', config)
-      .then((response) => {
-        this.usersImages = response.data
-        // console.log(this.usersImages)
-        this.errors = ''
-      })
-      .catch((errors) => {
-        this.errors = errors
-      })
-    Axios.get('http://localhost/bit703/module6/api/v1/user', config)
-      .then((response) => {
-        this.user = response.data
-        // console.log(this.usersImages)
-        this.errors = ''
-      })
-      .catch((errors) => {
-        this.errors = errors
-      })
   }
 }
 </script>

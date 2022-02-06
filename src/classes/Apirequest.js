@@ -84,7 +84,7 @@ class ApiRequest {
    * @param {string} endpoint
    */
   submit (requestType, endpoint) {
-    // console.log(this.headers)
+    console.log(this.data)
     // this.withCredentials = true
     return new Promise((resolve, reject) => {
       this.Axios({

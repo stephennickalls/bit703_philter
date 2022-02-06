@@ -5,28 +5,28 @@
           <div class="alert alert-danger">{{ errorMessage }}</div>
       </div>
       <div class="row" v-if="successMessage">
-          <div class="alert alert-success">{{ successMessage.data }}</div>
+          <div class="alert alert-success">{{ successMessage }}</div>
       </div>
  <form @submit.prevent="addImage">
 
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name" class="form-control" v-model="name" />
+                <input type="text" name="name" class="form-control" v-model="apiRequest.name" />
             </div>
 
             <div class="form-group">
                 <label>Description</label>
-                <input type="text" name="description" class="form-control" v-model="description" />
+                <input type="text" name="description" class="form-control" v-model="apiRequest.description" />
             </div>
 
             <div class="form-group">
                 <label>Tags - add a comma after each tag.</label>
-                <input type="text" name="tag" class="form-control" v-model="tag" />
+                <input type="text" name="tag" class="form-control" v-model="apiRequest.tag" />
             </div>
 
             <div class="form-group">
                 <label>Filter</label>
-                <select name="filter" class="form-select" v-model="filter">
+                <select name="filter" class="form-select" v-model="apiRequest.filter">
                     <option value="_1977">1977</option>
                     <option value="aden">Aden</option>
                     <option value="brannan">Brannan</option>
@@ -57,7 +57,7 @@
             </div>
 
             <div id="image-upload" class="form-group">
-                <input type="file" class="btn-form" name="file" @change="handleFileUpload( $event )" />
+                <input type="file" class="btn-form" name="file" />
             </div>
 
             <input class="btn btn-primary btn-form" name="submit" type="submit" value="Submit" />
@@ -69,40 +69,25 @@
 </template>
 
 <script>
-import Axios from 'axios'
-Axios.defaults.withCredentials = true
 export default {
   name: 'AddImage',
   data () {
     return {
-      name: '',
-      description: '',
-      tag: '',
-      filter: '',
-      file: '',
+      apiRequest: new this.$request({
+        name: '',
+        description: '',
+        tag: '',
+        filter: ''
+      }),
       errorMessage: '',
       successMessage: ''
     }
   },
   methods: {
-    handleFileUpload (event) {
-      this.file = event.target.files[0]
-    },
     addImage () {
-      const config = {
-        headers: {
-          Authorization: 'Bearer ' + this.$store.getters.getToken
-        }
-      }
-      const formData = new FormData()
-      formData.append('name', this.name)
-      formData.append('userID', this.$store.getters.getUserID)
-      formData.append('description', this.description)
-      formData.append('filter', this.filter)
-      formData.append('tag', this.tag)
-      formData.append('file', this.file)
-
-      Axios.post('http://localhost/bit703/module6/api/v1/img/add', formData, config)
+      this.apiRequest.addStore(this.$store)
+      this.apiRequest.addAuth()
+      this.apiRequest.post('image/add')
         .then((response) => {
           this.successMessage = response
           this.errorMessage = ''
@@ -112,12 +97,39 @@ export default {
           this.successMessage = ''
         })
     }
-  },
-
-  mounted () {
-    // this.someData = this.$refs.id.value
-    console.log(this.$store.getters.getUserID)
   }
+}
+</script>
 
+<script>
+import Axios from 'axios'
+Axios.defaults.withCredentials = true
+export default {
+  name: 'AddImages',
+  data () {
+     return {
+        name: '',
+        description: '',
+        tag: '',
+        filter: '',
+      errorMessage: '',
+      successMessage: ''
+    }
+  },
+  mounted () {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + this.$store.getters.getToken
+      }
+    }
+    Axios.post('http://localhost/bit703/module6/api/v1/img/image/add', config)
+      .then((response) => {
+        this.usersImages = response.data
+        this.errors = ''
+      })
+      .catch((errors) => {
+        this.errors = errors
+      })
+  }
 }
 </script>

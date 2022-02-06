@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="" v-if="this.$store.getters.isLoggedIn">
-            <h2 class="">Welcolm</h2>
+            <h3 class="">Welcome</h3>
+        </div>
+        <div class="" v-else>
+            <h3 class="">You are not logged in</h3>
         </div>
         <h3>Sign in</h3>
         <div class="row" v-if="errorMessage">
@@ -27,7 +30,7 @@
 </template>
 
 <script>
-import Axios from 'axios'
+// import Axios from 'axios'
 export default {
   name: 'Login',
   data () {
@@ -58,22 +61,8 @@ export default {
     }
   },
   mounted () {
-  // console.log('test')
-  // console.log(this.$store.getters.getToken)
-    const config = {
-      headers: {
-        Authorization: 'Bearer ' + this.$store.getters.getToken
-      }
-    }
-    Axios.get('http://localhost/bit703/module6/api/v1/user', config)
-      .then((response) => {
-        this.usersImages = response.data
-        // console.log(this.usersImages)
-        this.errors = ''
-      })
-      .catch((errors) => {
-        this.errors = errors
-      })
+    // console.log('test')
+    // console.log(this.$store.getters.isLoggedIn)
   }
 }
 </script>
