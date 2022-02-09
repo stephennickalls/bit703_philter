@@ -22,7 +22,8 @@ export default new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || '',
     userName: 'you are not logged in',
-    userID: ''
+    userID: '',
+    currentImageID: ''
   },
   mutations: {
     login (state, token) {
@@ -47,7 +48,13 @@ export default new Vuex.Store({
 
     unSetuserID (state) {
       state.userID = ''
+    },
+    setCurrentImageID (state, imageID) {
+      state.currentImageID = imageID
     }
+    // unSetCurrentImageID (state) {
+    //   state.currentImageID = ''
+    // }
 
   },
   actions: {
@@ -60,19 +67,12 @@ export default new Vuex.Store({
       commit('logout')
     }
 
-    // setUserName ({ commit }, userName) {
-    //   localStorage.setItem('userName', userName)
-    //   commit('userName', userName)
-    // },
-    // unSetUserName ({ commit }) {
-    //   localStorage.setItem('userName', 'you are not logged in')
-    //   commit('userName', 'you are not logged in')
-    // }
   },
   getters: {
     isLoggedIn: state => !!state.token,
     getToken: state => state.token,
     getUserName: state => state.userName,
-    getUserID: state => state.userID
+    getUserID: state => state.userID,
+    getCurrentImageID: state => state.currentImageID
   }
 })

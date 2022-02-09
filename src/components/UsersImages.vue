@@ -19,6 +19,8 @@
               <div class="card__content">
                 <h5 class="card__header">{{ image.name }}</h5>
                 <p class="card-description" >{{ image.description }}</p>
+
+                  <a class="btn btn-primary" @click="updateImageLink(image.id)">Edit</a>
               </div>
                 </div>
                 <div class="clearfix"></div>
@@ -35,8 +37,17 @@ export default {
     return {
       usersImages: [],
       user: [],
+      imageID: '',
       errors: ''
     }
+  },
+  methods: {
+    updateImageLink (imageID) {
+      this.$store.commit('setCurrentImageID', imageID)
+      console.log(this.$store.getters.getCurrentImageID)
+      this.$router.push('/image/update')
+    }
+
   },
   mounted () {
     if (this.$store.getters.getToken) {
